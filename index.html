@@ -15,12 +15,12 @@
       }
     }
 
-    .slide {
+    .hero-slide {
       opacity: 0;
       transition: opacity 1s ease;
     }
 
-    .slide.active {
+    .hero-slide.hero-slide--active {
       opacity: 1;
     }
   </style>
@@ -63,16 +63,16 @@
   <section class="relative h-screen overflow-hidden flex items-center justify-center">
 
     <div class="absolute inset-0">
-      <div class="slide active absolute inset-0 bg-cover bg-center"
-        style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop');">
+      <div class="hero-slide hero-slide--active absolute inset-0 bg-cover bg-center"
+        style="background-image: url('src/img/slideshow1.jpeg');">
       </div>
 
-      <div class="slide absolute inset-0 bg-cover bg-center"
-        style="background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1600&auto=format&fit=crop');">
+      <div class="hero-slide absolute inset-0 bg-cover bg-center"
+        style="background-image: url('src/img/slideshow2.jpeg');">
       </div>
 
-      <div class="slide absolute inset-0 bg-cover bg-center"
-        style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop');">
+      <div class="hero-slide absolute inset-0 bg-cover bg-center"
+        style="background-image: url('src/img/slideshow3.jpeg');">
       </div>
     </div>
 
@@ -103,7 +103,7 @@
   <section class="bg-slate-900 py-16 px-6 border-t border-white/10">
     <div class="max-w-6xl mx-auto bg-slate-800 border border-white/10 rounded-3xl p-8 shadow-2xl">
       <h2 class="text-3xl font-black text-center mb-8">
-        Pencarian Produk Hukum
+        Pencarian Dokumen Hukum
       </h2>
 
       <div class="grid md:grid-cols-4 gap-4">
@@ -285,13 +285,13 @@
   </footer>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelectorAll('.hero-slide');
     let currentSlide = 0;
 
     setInterval(() => {
-      slides[currentSlide].classList.remove('active');
+      slides[currentSlide].classList.remove('hero-slide--active');
       currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
+      slides[currentSlide].classList.add('hero-slide--active');
     }, 5000);
   </script>
 

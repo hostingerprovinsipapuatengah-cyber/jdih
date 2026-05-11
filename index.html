@@ -1,1059 +1,299 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JDIH Kabupaten Nabire</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1E3A5F;
-            --secondary: #F59E0B;
-            --accent: #10B981;
-            --bg: #F8FAFC;
-            --text: #1E293B;
-            --white: #FFFFFF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
-        }
-
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--white);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2rem;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: rgba(255,255,255,0.95);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.1);
-            color: var(--white);
-        }
-
-        /* Hero */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 0;
-            overflow: hidden;
-            padding-top: 80px;
-        }
-
-        .slideshow-container {
-            position: absolute;
-            top: -80px;
-            left: 0;
-            width: 100%;
-            height: calc(100% + 80px);
-            z-index: 0;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            background-size: cover;
-            background-position: center;
-            animation: fadeInOut 8s infinite;
-        }
-
-        .slide:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .slide:nth-child(2) {
-            animation-delay: 8s;
-        }
-
-        .slide:nth-child(3) {
-            animation-delay: 16s;
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            16.67%, 83.33% { opacity: 1; }
-        }
-
-        .slide-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(30,58,95,0.7) 0%, 
-                rgba(16,185,129,0.6) 100%);
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            max-width: 600px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .search-container {
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1.5rem 6rem 1.5rem 2.5rem;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            outline: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .search-btn:hover {
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 10px 30px rgba(245,158,11,0.4);
-        }
-
-        /* Stats & Quick Search */
-        .stats-section {
-            padding: 5rem 2rem;
-            background: var(--white);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .quick-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .category-btn {
-            padding: 1.5rem;
-            border: 2px solid #E2E8F0;
-            border-radius: 16px;
-            background: var(--white);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .category-btn:hover {
-            border-color: var(--secondary);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(245,158,11,0.15);
-        }
-
-        .category-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .category-section {
-            padding: 5rem 2rem;
-            background: #FFFFFF;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .category-card {
-            background: #F8FAFC;
-            border-radius: 20px;
-            border: 1px solid #E2E8F0;
-            padding: 2rem;
-            text-align: center;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .category-card h4 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: var(--primary);
-        }
-
-        .about-section {
-            padding: 5rem 2rem;
-            background: var(--bg);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            color: #475569;
-            line-height: 1.8;
-        }
-
-        .about-highlight {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 18px;
-            border: 1px solid #E2E8F0;
-        }
-
-        .about-highlight p {
-            margin: 0;
-        }
-
-        /* Latest Documents */
-        .documents-section {
-            padding: 5rem 2rem;
-            background: var(--bg);
-        }
-
-        .document-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .document-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .document-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-        }
-
-        .doc-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid #F1F5F9;
-        }
-
-        .doc-number {
-            background: var(--secondary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .doc-title {
-            margin-top: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .doc-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #64748B;
-        }
-
-        .doc-footer {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #F8FAFC;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--primary);
-            color: white;
-            padding: 4rem 0 1rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer h3 {
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-
-        .footer a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Modal Surat/Dokumen */
-        .document-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .document-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .document-content {
-            background: white;
-            border-radius: 16px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.3s;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .document-header {
-            padding: 3rem;
-            border-bottom: 2px solid #1E3A5F;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(30,58,95,0.05), rgba(16,185,129,0.05));
-            position: relative;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .close-modal-btn:hover {
-            background: #E59D0B;
-            transform: scale(1.1);
-        }
-
-        .document-header h2 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .document-number {
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .document-body {
-            padding: 3rem;
-            line-height: 1.8;
-            color: #1E293B;
-        }
-
-        .document-body p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .document-body h3 {
-            color: var(--primary);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .document-body ul {
-            margin-left: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .document-body li {
-            margin-bottom: 0.5rem;
-        }
-
-        .document-footer {
-            padding: 2rem 3rem;
-            text-align: right;
-            border-top: 1px solid #E2E8F0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .document-signature {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .document-signature p {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        .signature-place {
-            font-weight: 600;
-        }
-
-        .signature-date {
-            margin-bottom: 3rem;
-        }
-
-        .close-document {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .close-document:hover {
-            background: #E59D0B;
-            transform: scale(1.05);
-        }
-
-        /* Announcement Fullscreen Popup */
-        .announcement-popup {
-            display: none;
-            position: fixed;
-            z-index: 1500;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(1px);
-            animation: fadeIn 0.4s;
-        }
-
-        .announcement-popup.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .announcement-content {
-            background: white;
-            color: #1E293B;
-            border-radius: 20px;
-            max-width: 560px;
-            width: min(92vw, 560px);
-            max-height: calc(100vh - 1rem);
-            padding: 1rem 0.75rem 1rem;
-            text-align: center;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
-            animation: slideUp 0.4s;
-            position: relative;
-            overflow-y: auto;
-            scrollbar-width: none;
-        }
-
-        .announcement-content::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-        }
-
-        .announcement-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #F1F5F9;
-            color: var(--primary);
-            border: 2px solid #E2E8F0;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .announcement-close:hover {
-            background: #E2E8F0;
-            transform: scale(1.1);
-        }
-
-        .announcement-document-frame {
-            width: min(80vw, 520px);
-            height: min(calc(100vh - 6rem), 92vh);
-            aspect-ratio: 210 / 330;
-            border: 1px solid #CBD5E1;
-            border-radius: 16px;
-            background: #fff;
-            box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-            overflow: hidden;
-            margin: 0 auto 0.75rem;
-        }
-
-        .announcement-document {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            background: #fff;
-        }
-
-        .announcement-label {
-            margin: 0;
-            color: #334155;
-            font-size: 0.98rem;
-            opacity: 0.85;
-        }
-
-        @media (max-width: 768px) {
-            .document-content {
-                border-radius: 12px;
-            }
-
-            .document-header {
-                padding: 2rem;
-            }
-
-            .document-header h2 {
-                font-size: 1.4rem;
-            }
-
-            .document-body {
-                padding: 2rem;
-            }
-
-            .document-footer {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JDIH Papua Tengah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .slide {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo">
-                <img src="src/img/logo.png" alt="Logo JDIH">
-                JDIH Kabupaten Nabire
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Beranda</a></li>
-                <li><a href="#dokumen" class="nav-link">Dokumen</a></li>
-                <li><a href="#kategori" class="nav-link">Kategori</a></li>
-                <li><a href="#tentang" class="nav-link">Tentang</a></li>
-                <li><a href="#kontak" class="nav-link">Kontak</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-slate-950 text-white overflow-x-hidden">
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="slideshow-container">
-            <div class="slide" style="background-image: url('src/img/slideshow1.jpeg');"></div>
-            <div class="slide" style="background-image: url('src/img/slideshow2.jpeg');"></div>
-            <div class="slide" style="background-image: url('src/img/slideshow3.jpeg');"></div>
-            <div class="slide-overlay"></div>
-        </div>
-        <div class="hero-content">
-            <h1>JDIH Kabupaten Nabire</h1>
-            <p class="hero-subtitle">Sistem Dokumentasi dan Informasi Hukum Kabupaten Nabire - Akses mudah semua peraturan daerah, SK Bupati, dan dokumen hukum resmi lainnya</p>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Cari Perda, SK Bupati, Perbup, atau nomor dokumen...">
-                <button class="search-btn">
-                    <i class="fas fa-search"></i> Cari
-                </button>
-            </div>
-        </div>
-    </section>
+  <!-- Running Text -->
+  <div class="bg-cyan-500 overflow-hidden whitespace-nowrap py-2 text-sm font-semibold">
+    <div style="animation: marquee 20s linear infinite;">
+      JARINGAN DOKUMENTASI DAN INFORMASI HUKUM PROVINSI PAPUA TENGAH • PELAYANAN INFORMASI HUKUM DIGITAL • AKSES DOKUMEN HUKUM CEPAT DAN TERINTEGRASI •
+    </div>
+  </div>
 
-    <!-- Fullscreen Announcement Popup -->
-    <div id="announcementPopup" class="announcement-popup active">
-        <div class="announcement-content">
-            <button class="announcement-close" onclick="closeAnnouncement()">✕</button>
-            <div class="announcement-document-frame" id="announcementFileFrame"></div>
-            <p class="announcement-label">Contoh dokumen scan SK / pengumuman resmi. Format bisa gambar atau PDF.</p>
-        </div>
+  <!-- Header -->
+  <header class="bg-slate-900 border-b border-white/10 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6 flex-wrap">
+      <img src="src/img/logo_jdihn.png" alt="Logo JDIHN" class="w-20 h-20 object-contain">
+
+      <h1 class="text-2xl md:text-5xl font-black text-center flex-1">
+        JDIH PROVINSI PAPUA TENGAH
+      </h1>
+
+      <img src="src/img/logo_pemprovppt.png" alt="Logo Papua Tengah" class="w-20 h-20 object-contain">
     </div>
 
-    <!-- Modal Surat/Dokumen -->
-    <div id="documentModal" class="document-modal">
-        <div class="document-content">
-            <div class="document-header">
-                <button class="close-modal-btn" onclick="closeDocument()">✕</button>
-                <h2>SURAT KEPUTUSAN BUPATI</h2>
-                <div class="document-number">Nomor: 85/2024</div>
-            </div>
-            <div class="document-body">
-                <div class="document-signature" style="text-align: center; margin-bottom: 2rem;">
-                    <p class="signature-place">KABUPATEN NABIRE</p>
-                    <p class="signature-date">Tanggal 15 Oktober 2024</p>
-                </div>
+    <nav class="border-t border-white/10 bg-slate-800/70">
+      <div class="max-w-7xl mx-auto flex justify-center gap-10 py-4 text-lg font-semibold overflow-x-auto px-6">
+        <a href="#" class="hover:text-cyan-300 transition">Beranda</a>
+        <a href="#" class="hover:text-cyan-300 transition">Profil</a>
+        <a href="#" class="hover:text-cyan-300 transition">Produk Hukum</a>
+        <a href="#" class="hover:text-cyan-300 transition">Monografi</a>
+        <a href="#" class="hover:text-cyan-300 transition">Berita</a>
+        <a href="#" class="hover:text-cyan-300 transition">Galeri</a>
+        <a href="#" class="hover:text-cyan-300 transition">Kontak</a>
+      </div>
+    </nav>
+  </header>
 
-                <h3>TENTANG</h3>
-                <p>Perubahan Organisasi dan Tata Kerja pada Dinas/Lembaga Daerah Kabupaten Nabire</p>
+  <!-- Hero -->
+  <section class="relative h-screen overflow-hidden flex items-center justify-center">
 
-                <h3>DENGAN RAHMAT TUHAN YANG MAHA ESA</h3>
-                <p>Bupati Nabire,</p>
+    <div class="absolute inset-0">
+      <div class="slide active absolute inset-0 bg-cover bg-center"
+        style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop');">
+      </div>
 
-                <h3>MENIMBANG :</h3>
-                <p>Bahwa untuk meningkatkan efisiensi dan efektivitas penyelenggaraan pemerintahan daerah serta dalam rangka optimalisasi pelayanan publik, perlu melakukan perubahan organisasi dan tata kerja pada Dinas/Lembaga Daerah Kabupaten Nabire;</p>
+      <div class="slide absolute inset-0 bg-cover bg-center"
+        style="background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1600&auto=format&fit=crop');">
+      </div>
 
-                <h3>MENGINGAT :</h3>
-                <ul>
-                    <li>Undang-Undang Nomor 23 Tahun 2014 tentang Pemerintahan Daerah sebagaimana telah diubah beberapa kali terakhir dengan Undang-Undang Nomor 11 Tahun 2020;</li>
-                    <li>Peraturan Pemerintah Nomor 18 Tahun 2016 tentang Perangkat Daerah;</li>
-                    <li>Peraturan Daerah Kabupaten Nabire Nomor 5 Tahun 2022 tentang Struktur Organisasi Perangkat Daerah Kabupaten Nabire;</li>
-                </ul>
-
-                <h3>MEMUTUSKAN :</h3>
-                <p><strong>Pasal 1</strong></p>
-                <p>Menetapkan perubahan organisasi dan tata kerja pada Dinas/Lembaga Daerah Kabupaten Nabire sebagaimana tercantum dalam lampiran yang merupakan bagian tidak terpisahkan dari Keputusan Bupati ini.</p>
-
-                <p><strong>Pasal 2</strong></p>
-                <p>Keputusan Bupati ini mulai berlaku pada tanggal ditetapkan.</p>
-
-                <p style="text-align: center; margin-top: 3rem; font-style: italic;">Ditetapkan di Nabire<br>Pada tanggal 15 Oktober 2024<br><br>BUPATI NABIRE,</p>
-            </div>
-            <div class="document-footer">
-                <div style="flex: 1;"></div>
-                <button class="close-document" onclick="closeDocument()">Tutup Dokumen</button>
-            </div>
-        </div>
+      <div class="slide absolute inset-0 bg-cover bg-center"
+        style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop');">
+      </div>
     </div>
 
-    <!-- Stats & Quick Search -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="section-grid">
-                <div>
-                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary);">Statistik Dokumen</h2>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-number">12.5K</span>
-                            <p>Total Dokumen</p>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">2.3K</span>
-                            <p>Peraturan Daerah</p>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">1.8K</span>
-                            <p>SK Bupati</p>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">150+</span>
-                            <p>Putusan PT</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 2rem; color: var(--primary);">Cari Cepat</h3>
-                    <div class="quick-categories">
-                        <div class="category-btn">
-                            <i class="fas fa-file-contract category-icon" style="color: #F59E0B;"></i>
-                            Peraturan Daerah
-                        </div>
-                        <div class="category-btn">
-                            <i class="fas fa-award category-icon" style="color: #10B981;"></i>
-                            Perbup
-                        </div>
-                        <div class="category-btn">
-                            <i class="fas fa-medal category-icon" style="color: #1E3A5F;"></i>
-                            SK Bupati
-                        </div>
-                        <div class="category-btn">
-                            <i class="fas fa-id-card category-icon" style="color: #EF4444;"></i>
-                            SKCK
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="relative z-20 text-center px-6 max-w-4xl">
+      <div class="inline-flex items-center gap-3 bg-cyan-500/20 border border-cyan-400/30 px-6 py-3 rounded-full text-cyan-200 mb-8 backdrop-blur">
+        Portal Informasi Hukum Modern
+      </div>
+
+      <p class="text-xl md:text-3xl leading-relaxed mb-10">
+        Platform layanan dokumentasi dan informasi hukum digital Provinsi Papua Tengah yang modern, cepat, transparan, dan mudah diakses masyarakat.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-5">
+        <button class="bg-cyan-500 hover:bg-cyan-400 px-10 py-5 rounded-full text-lg font-bold transition">
+          Jelajahi Dokumen
+        </button>
+
+        <button class="border-2 border-white/70 hover:bg-white hover:text-slate-900 px-10 py-5 rounded-full text-lg font-bold transition">
+          Lihat Berita
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search -->
+  <section class="bg-slate-900 py-16 px-6 border-t border-white/10">
+    <div class="max-w-6xl mx-auto bg-slate-800 border border-white/10 rounded-3xl p-8 shadow-2xl">
+      <h2 class="text-3xl font-black text-center mb-8">
+        Pencarian Produk Hukum
+      </h2>
+
+      <div class="grid md:grid-cols-4 gap-4">
+        <input type="text" placeholder="Cari dokumen hukum..."
+          class="md:col-span-2 bg-slate-900 border border-white/10 px-5 py-4 rounded-2xl outline-none focus:border-cyan-400">
+
+        <select class="bg-slate-900 border border-white/10 px-5 py-4 rounded-2xl outline-none focus:border-cyan-400">
+          <option>Semua Kategori</option>
+          <option>Peraturan Daerah</option>
+          <option>Keputusan Gubernur</option>
+          <option>Instruksi</option>
+        </select>
+
+        <button class="bg-cyan-500 hover:bg-cyan-400 rounded-2xl font-bold transition px-5 py-4">
+          Cari Dokumen
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistik -->
+  <section class="py-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-6">
+
+      <div class="bg-slate-900 border border-white/10 rounded-3xl p-8 text-center">
+        <h3 class="text-5xl font-black text-cyan-400 mb-3">1,284</h3>
+        <p class="text-slate-300">Produk Hukum</p>
+      </div>
+
+      <div class="bg-slate-900 border border-white/10 rounded-3xl p-8 text-center">
+        <h3 class="text-5xl font-black text-cyan-400 mb-3">5,421</h3>
+        <p class="text-slate-300">Dokumen Aktif</p>
+      </div>
+
+      <div class="bg-slate-900 border border-white/10 rounded-3xl p-8 text-center">
+        <h3 class="text-5xl font-black text-cyan-400 mb-3">23K+</h3>
+        <p class="text-slate-300">Pengunjung</p>
+      </div>
+
+      <div class="bg-slate-900 border border-white/10 rounded-3xl p-8 text-center">
+        <h3 class="text-5xl font-black text-cyan-400 mb-3">312</h3>
+        <p class="text-slate-300">Berita</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Layanan -->
+  <section class="py-24 px-6 bg-slate-900">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-black mb-5">Layanan JDIH</h2>
+        <p class="text-slate-300 text-xl max-w-3xl mx-auto">
+          Portal layanan hukum digital untuk mempermudah masyarakat memperoleh informasi hukum secara cepat dan transparan.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="bg-slate-950 border border-white/10 rounded-3xl p-8">
+          <div class="text-5xl mb-6">⚖️</div>
+          <h3 class="text-2xl font-bold mb-4">Produk Hukum</h3>
+          <p class="text-slate-300">Peraturan daerah, keputusan gubernur, dan dokumen hukum lainnya.</p>
         </div>
-    </section>
 
-    <!-- Latest Documents -->
-    <section class="documents-section" id="dokumen">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary);">Dokumen Terbaru</h2>
-            <div class="document-grid">
-                <div class="document-card">
-                    <div class="doc-header">
-                        <div class="doc-number">PERDA No. 5/2024</div>
-                        <h3 class="doc-title">Peraturan Daerah Kabupaten Mimika tentang Rencana Tata Ruang Wilayah</h3>
-                        <div class="doc-meta">
-                            <span><i class="fas fa-calendar"></i> 15 Okt 2024</span>
-                            <span><i class="fas fa-eye"></i> 1.2K</span>
-                            <span><i class="fas fa-download"></i> 450</span>
-                        </div>
-                    </div>
-                    <div class="doc-footer">
-                        <span style="color: #F59E0B; font-weight: 500;">Peraturan Daerah</span>
-                        <button style="background: var(--secondary); color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 25px; font-weight: 500; cursor: pointer;" onclick="openDocument()">Lihat Dokumen</button>
-                    </div>
-                </div>
-                <!-- Tambah card lain sesuai kebutuhan -->
-            </div>
+        <div class="bg-slate-950 border border-white/10 rounded-3xl p-8">
+          <div class="text-5xl mb-6">📄</div>
+          <h3 class="text-2xl font-bold mb-4">Dokumen Terbaru</h3>
+          <p class="text-slate-300">Akses dokumen hukum terbaru yang telah dipublikasikan.</p>
         </div>
-    </section>
 
-    <section class="category-section" id="kategori">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: var(--primary);">Kategori Populer</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <i class="fas fa-balance-scale" style="font-size: 2rem; color: var(--secondary);"></i>
-                    <h4>Peraturan Daerah</h4>
-                    <p>Peraturan yang mengatur tata kelola pemerintah daerah dan pelayanan publik.</p>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-file-signature" style="font-size: 2rem; color: var(--accent);"></i>
-                    <h4>SK Bupati</h4>
-                    <p>Surat Keputusan Bupati yang menjadi dasar kebijakan dan pelaksanaan tugas.</p>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-book" style="font-size: 2rem; color: var(--primary);"></i>
-                    <h4>Perbup</h4>
-                    <p>Peraturan Bupati yang memuat ketentuan teknis pelaksanaan peraturan daerah.</p>
-                </div>
-                <div class="category-card">
-                    <i class="fas fa-newspaper" style="font-size: 2rem; color: #EF4444;"></i>
-                    <h4>Pengumuman</h4>
-                    <p>Pengumuman resmi dan pemberitahuan penting dari pemerintahan daerah.</p>
-                </div>
-            </div>
+        <div class="bg-slate-950 border border-white/10 rounded-3xl p-8">
+          <div class="text-5xl mb-6">📰</div>
+          <h3 class="text-2xl font-bold mb-4">Berita Hukum</h3>
+          <p class="text-slate-300">Informasi dan kegiatan terbaru terkait layanan hukum daerah.</p>
         </div>
-    </section>
 
-    <section class="about-section" id="tentang">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text">
-                    <h3>Tentang JDIH Kabupaten Nabire</h3>
-                    <p>Jaringan Dokumentasi dan Informasi Hukum (JDIH) Kabupaten Nabire menyediakan akses cepat dan transparan ke dokumen hukum daerah, SK Bupati, Perbup, dan pengumuman resmi. Platform ini dirancang untuk memudahkan masyarakat menemukan informasi hukum yang valid dan terpercaya.</p>
-                    <div class="about-highlight">
-                        <p><strong>Visi:</strong> Mewujudkan akses informasi hukum yang terbuka dan mudah diakses oleh semua lapisan masyarakat.</p>
-                    </div>
-                </div>
-                <div>
-                    <img src="src/img/slideshow1.jpeg" alt="Tentang JDIH Nabire" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);" />
-                </div>
-            </div>
+        <div class="bg-slate-950 border border-white/10 rounded-3xl p-8">
+          <div class="text-5xl mb-6">📷</div>
+          <h3 class="text-2xl font-bold mb-4">Galeri</h3>
+          <p class="text-slate-300">Dokumentasi kegiatan dan agenda JDIH Papua Tengah.</p>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer" id="kontak">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3>JDIH Kabupaten Nabire</h3>
-                    <p>Sistem informasi hukum terpadu Kabupaten Nabire untuk pelayanan publik yang transparan dan akuntabel.</p>
-                </div>
-                <div>
-                    <h3>Kontak</h3>
-                    <a href="#"><i class="fas fa-envelope"></i> jdih@nabirekab.go.id</a>
-                    <a href="#"><i class="fas fa-phone"></i> (0901) 123-456</a>
-                    <a href="#"><i class="fas fa-map-marker-alt"></i> Nabire, Papua</a>
-                </div>
-                <div>
-                    <h3>Jam Operasional</h3>
-                    <p>Senin - Kamis: 08.00 - 16.00<br>Jumat: 08.00 - 11.30</p>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7);">
-                <p>&copy; 2024 JDIH Kabupaten Nabire. Bagian Hukum Setda Nabire. Semua hak dilindungi.</p>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Berita -->
+  <section class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="flex items-center justify-between mb-14 flex-wrap gap-4">
+        <div>
+          <h2 class="text-5xl font-black mb-3">Berita Terbaru</h2>
+          <p class="text-slate-300 text-lg">Informasi terbaru seputar kegiatan dan layanan JDIH.</p>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        // Announcement Popup
-        function closeAnnouncement() {
-            document.getElementById('announcementPopup').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+      <div class="grid lg:grid-cols-3 gap-8">
 
-        // Modal Dokumen
-        function openDocument() {
-            document.getElementById('documentModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        <div class="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop"
+            class="h-60 w-full object-cover">
 
-        function closeDocument() {
-            document.getElementById('documentModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+          <div class="p-7">
+            <span class="text-cyan-400 text-sm font-semibold">10 Mei 2026</span>
+            <h3 class="text-2xl font-bold mt-3">Sosialisasi JDIH kepada masyarakat Papua Tengah</h3>
+          </div>
+        </div>
 
-        // Tutup modal saat klik di luar
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('documentModal');
-            const popup = document.getElementById('announcementPopup');
-            if (event.target === modal) {
-                closeDocument();
-            }
-            if (event.target === popup) {
-                closeAnnouncement();
-            }
-        });
+        <div class="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+            class="h-60 w-full object-cover">
 
-        // Tutup modal dengan ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeDocument();
-                closeAnnouncement();
-            }
-        });
+          <div class="p-7">
+            <span class="text-cyan-400 text-sm font-semibold">7 Mei 2026</span>
+            <h3 class="text-2xl font-bold mt-3">Digitalisasi dokumen hukum daerah terus ditingkatkan</h3>
+          </div>
+        </div>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+        <div class="bg-slate-900 border border-white/10 rounded-3xl overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
+            class="h-60 w-full object-cover">
 
-        // Active nav link
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+          <div class="p-7">
+            <span class="text-cyan-400 text-sm font-semibold">3 Mei 2026</span>
+            <h3 class="text-2xl font-bold mt-3">Pelatihan pengelolaan dokumentasi hukum modern</h3>
+          </div>
+        </div>
 
-        // Search functionality
-        document.querySelector('.search-btn').addEventListener('click', () => {
-            const query = document.querySelector('.search-input').value;
-            if (query) {
-                alert(`🔍 Mencari: "${query}"\n\nFitur pencarian full-text akan diimplementasikan di tahap selanjutnya!`);
-            }
-        });
+      </div>
+    </div>
+  </section>
 
-        // Render announcement file (image or PDF)
-        const announcementFile = 'src/pengumuman.png';
+  <!-- Footer -->
+  <footer class="bg-slate-900 border-t border-white/10 py-16 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
 
-        function renderAnnouncementFile() {
-            const frame = document.getElementById('announcementFileFrame');
-            if (!frame) return;
+      <div>
+        <h3 class="text-2xl font-black mb-5">JDIH Papua Tengah</h3>
+        <p class="text-slate-400 leading-relaxed">
+          Jaringan Dokumentasi dan Informasi Hukum Provinsi Papua Tengah.
+        </p>
+      </div>
 
-            const ext = announcementFile.split('.').pop().toLowerCase();
-            if (ext === 'pdf') {
-                frame.innerHTML = `
-                    <object data="${announcementFile}" type="application/pdf" width="100%" height="100%">
-                        <p style="padding: 1rem; color: #334155;">PDF tidak bisa ditampilkan. <a href="${announcementFile}" target="_blank" rel="noreferrer">Klik di sini untuk membuka file</a>.</p>
-                    </object>
-                `;
-            } else {
-                frame.innerHTML = `<img src="${announcementFile}" alt="Dokumen Pengumuman" class="announcement-document">`;
-            }
-        }
+      <div>
+        <h4 class="font-bold text-lg mb-5">Menu</h4>
+        <div class="space-y-3 text-slate-400">
+          <p>Beranda</p>
+          <p>Profil</p>
+          <p>Produk Hukum</p>
+          <p>Berita</p>
+        </div>
+      </div>
 
-        renderAnnouncementFile();
+      <div>
+        <h4 class="font-bold text-lg mb-5">Kontak</h4>
+        <div class="space-y-3 text-slate-400">
+          <p>Jl. Merdeka No.1 Papua Tengah</p>
+          <p>info@jdihpapuatengah.go.id</p>
+          <p>(0984) 123456</p>
+        </div>
+      </div>
 
-        // Category buttons
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const category = btn.textContent.trim();
-                alert(`📂 Filter dokumen: ${category}\n\nFitur filter kategori akan ditambahkan!`);
-            });
-        });
-    </script>
+      <div>
+        <h4 class="font-bold text-lg mb-5">Jam Pelayanan</h4>
+        <div class="space-y-3 text-slate-400">
+          <p>Senin - Jumat</p>
+          <p>08.00 - 16.00 WIT</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10 mt-14 pt-8 text-center text-slate-500">
+      © 2026 JDIH Provinsi Papua Tengah. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 5000);
+  </script>
+
 </body>
 </html>
